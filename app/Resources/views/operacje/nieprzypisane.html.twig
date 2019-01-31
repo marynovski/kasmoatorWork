@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Operacje bez kategorii</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dataoperacji</th>
+                <th>Opisoperacji</th>
+                <th>Tytul</th>
+                <th>Kontrahent</th>
+                <th>Kwota</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operacje in operacjes %}
+            <tr>
+                <td><a href="{{ path('operacje_ustaw_kategorie', { 'id': operacje.id }) }}">{{ operacje.id }}</a></td>
+                <td>{% if operacje.dataOperacji %}{{ operacje.dataOperacji|date('Y-m-d H:i:s') }}{% endif %}</td>
+
+                <td>{{ operacje.opisOperacji }}</td>
+                <td>{{ operacje.tytul }}</td>
+                <td>{{ operacje.kontrahent }}</td>
+                <td>{{ operacje.kwota }}</td>
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('operacje_ustaw_kategorie', { 'id': operacje.id }) }}">Przypisz Kategorie</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('operacje_zaladuj_plik') }}">Upload wyciągu bankowego</a>
+        </li>
+        <li>
+            <a href="{{ path('naszefirmy_new') }}">Nowa firma</a>
+        </li>
+        <li>
+            <a href="{{ path('projekty_new') }}">Nowy projekt</a>
+        </li>
+        <li>
+            <a href="{{ path('faktury_new') }}">Nowa faktura</a>
+        </li>
+        <li>
+            <a href="{{ path('podatki_new') }}">Nowy podatek</a>
+        </li>
+        <li>
+            <a href="{{ path('platnosci') }}">Nieopłacone faktury i podatki</a>
+        </li>
+
+    </ul>
+{% endblock %}

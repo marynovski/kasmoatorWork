@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Niepołacone faktury i podatki</h1>
+
+    <table>
+        <thead>
+            <tr>
+
+                <th>Nazwa Kontrahenta/Urzędu</th>
+                <th>Opis/Nr Faktury</th>
+                <th>Kwota</th>
+                <th>Nr Konta</th>
+                <th>Projekt</th>
+                <th>Termin Płatności</th>
+                <th>Opłacone?</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for platnosc in platnosci %}
+
+            <tr {% if "now"|date('Y-m-d') > platnosc.terminPlatnosci|date('Y-m-d') %}class="po_terminie"{%  endif %}>
+
+
+
+                <td>
+                    {% if platnosc.urzad is defined %}
+
+                        {% if platnosc.urzad == 1 %}
+                            <span>Urząd Skarbowy</span>
+                        {% elseif platnosc.urzad == 2 %}
+                            <span>ZUS</span>
+                        {% elseif platnosc.urzad == 3 %}
+                            <span>Inne</span>
+                        {% endif %}
+
+                    {% endif %}
+
+                    {% if platnosc.kontrahent.nazwa is defined %}
+                        {{ platnosc.kontrahent.nazwa }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {% if platnosc.opis is defined %}
+                        {{ platnosc.opis }}
+                    {% endif %}
+
+                    {% if platnosc.numer is defined %}
+                        / {{ platnosc.numer }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {% if platnosc.kwota is defined %}
+                        {{ platnosc.kwota }}
+                    {% endif %}
+
+                    {% if platnosc.kwotaBrutto is defined %}
+                        {{ platnosc.kwotaBrutto }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if platnosc.kontrahentNrKonta is defined %}
+                        {{ platnosc.kontrahentNrKonta }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if platnosc.projekt is defined %}
+                        {{ platnosc.projekt }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if platnosc.terminPlatnosci is defined %}
+                        {{ platnosc.terminPlatnosci|date('Y-m-d H:i:s') }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    <button type="button">Tak</button>
+
+                </td>
+
+
+
+            </tr>
+        {% endfor %}
+    <ul>
+        <li>
+            <a href="{{ path('operacje_nieprzypisane') }}">Operacje</a>
+        </li>
+    </ul>            {#<td>{{ operacje.type }}</td>#}
+                {#<td>{% if operacje.dataOperacji %}{{ operacje.dataOperacji|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                {#<td>{% if operacje.dataKsiegowania %}{{ operacje.dataKsiegowania|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                {#<td>{{ operacje.opisOperacji }}</td>#}
+                {#<td>{{ operacje.tytul }}</td>#}
+                {#<td>{{ operacje.kontrahent }}</td>#}
+                {#<td>{{ operacje.nrKonta }}</td>#}
+                {#<td>{{ operacje.kwota }}</td>#}
+                {#<td>{{ operacje.saldoPoOperacji }}</td>#}
+                {#<td>#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<a href="{{ path('wyplatygotowkowe_ustaw_kategorie', { 'id': operacje.id }) }}">Przypisz Kategorie</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('wyplatygotowkowe_edit', { 'id': operacje.id }) }}">Edytuj</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+
+        {#</tbody>#}
+    {#</table>#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('wyplatygotowkowe_new') }}">Nowa operacja</a>#}
+        {#</li>#}
+    {#</ul>#}
+{% endblock %}

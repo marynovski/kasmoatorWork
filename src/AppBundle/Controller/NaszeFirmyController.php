@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\NaszeFirmy;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Naszefirmy controller.
@@ -130,7 +131,6 @@ class NaszeFirmyController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('naszefirmy_delete', array('id' => $naszeFirmy->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

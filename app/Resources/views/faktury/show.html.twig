@@ -66,15 +66,15 @@
 
     <ul>
         <li>
-            <a href="{{ path('faktury_index') }}">Back to the list</a>
+            <a href="{{ path('operacje_nieprzypisane') }}">Operacje</a>
         </li>
-        <li>
-            <a href="{{ path('faktury_edit', { 'id': faktury.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+        {#<li>#}
+            {#<a href="{{ path('faktury_edit', { 'id': faktury.id }) }}">Edycja</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Usuń">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
     </ul>
 {% endblock %}

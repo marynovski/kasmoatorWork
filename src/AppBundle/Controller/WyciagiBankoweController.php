@@ -36,7 +36,7 @@ class WyciagiBankoweController extends Controller
     /**
      * Creates a new wyciagiBankowe entity.
      *
-     * @Route("/zaladuj_plik", name="wyciagibankowe_zaladuj_plik")
+     * @Route("/zaladuj_plik", name="operacje_zaladuj_plik")
      * @Method({"GET", "POST"})
      */
     public function zaladujPlikAction(Request $request)
@@ -46,7 +46,6 @@ class WyciagiBankoweController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            print_r($_FILES)
                  //checks that file is uploaded
             $dane_wyciagu_bankowego = file($_FILES['appbundle_wyciagibankowe']['tmp_name']['plik_wyciagu_bankowego']);
 //            var_dump($dane_wyciagu_bankowego);die();
@@ -58,12 +57,12 @@ class WyciagiBankoweController extends Controller
             $wyciagBankowyManager = $this->get('app.manager.wyciagbankowy');
             var_dump($wyciagBankowyManager->parsowanieDanych($dane_wyciagu_bankowego));
 
-            die("form submitted");
+
 //            $em = $this->getDoctrine()->getManager();
 //            $em->persist($wyciagiBankowe);
 //            $em->flush();
 //
-//            return $this->redirectToRoute('wyciagibankowe_show', array('id' => $wyciagiBankowe->getId()));
+            return $this->redirectToRoute('operacje_nieprzypisane', array('id' => $wyciagiBankowe->getId()));
         }
 
         return $this->render('operacje/upload.html.twig', array(

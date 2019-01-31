@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nowy podatek</h1>
+
+    {{ form_start(form) }}
+    <div>
+        {{ form_label(form.urzad) }}
+        {{ form_errors(form.urzad) }}
+        {{ form_widget(form.urzad) }}
+    </div>
+
+    <div>
+        {{ form_label(form.naszaFirmaId) }}
+        {{ form_errors(form.naszaFirmaId) }}
+        {{ form_widget(form.naszaFirmaId) }}
+    </div>
+
+    <div>
+        {{ form_label(form.opis) }}
+        {{ form_errors(form.opis) }}
+        {{ form_widget(form.opis) }}
+    </div>
+
+    <div>
+        {{ form_label(form.okres) }}
+        {{ form_errors(form.okres) }}
+        {{ form_widget(form.okres) }}
+    </div>
+
+    <div>
+        {{ form_label(form.kwota) }}
+        {{ form_errors(form.kwota) }}
+        {{ form_widget(form.kwota) }}
+    </div>
+
+    <div id="czyZaplacono">
+        {{ form_label(form.czyZaplacono) }}
+        {{ form_errors(form.czyZaplacono) }}
+        {{ form_widget(form.czyZaplacono) }}
+    </div>
+
+    <div id="paid">
+        {{ form_label(form.terminPlatnosci) }}
+        {{ form_errors(form.terminPlatnosci) }}
+        {{ form_widget(form.terminPlatnosci) }}
+    </div>
+        {#{{ form_widget(form) }}#}
+        <input type="submit" value="Dodaj" />
+    {{ form_end(form) }}
+    <ul>
+        <li>
+            <a href="{{ path('operacje_nieprzypisane') }}">Operacje</a>
+        </li>
+    </ul>
+
+    <script>
+        $('#appbundle_podatki_terminPlatnosci_date_year').prop('required', true);
+        $('#appbundle_faktury_terminPlatnosci_date_month').prop('required', true);
+        $('#appbundle_faktury_terminPlatnosci_date_day').prop('required', true);
+        $('#appbundle_faktury_terminPlatnosci_time_hour').prop('required', true);
+        $('#appbundle_faktury_terminPlatnosci_time_minute').prop('required', true);
+
+        $(document).on('click', '#appbundle_podatki_czyZaplacono', function (e) {
+
+            if($(this).is(":checked")){
+                $('#paid').hide();
+                $('#appbundle_podatki_terminPlatnosci_date_year').prop('required', false);
+                $('#appbundle_faktury_terminPlatnosci_date_month').prop('required', false);
+                $('#appbundle_faktury_terminPlatnosci_date_day').prop('required', false);
+                $('#appbundle_faktury_terminPlatnosci_time_hour').prop('required', false);
+                $('#appbundle_faktury_terminPlatnosci_time_minute').prop('required', false);
+
+            }
+
+            else if($(this).is(":not(:checked)")){
+                $('#paid').show();
+                $('#appbundle_podatki_terminPlatnosci_date_year').prop('required', true);
+                $('#appbundle_faktury_terminPlatnosci_date_month').prop('required', true);
+                $('#appbundle_faktury_terminPlatnosci_date_day').prop('required', true);
+                $('#appbundle_faktury_terminPlatnosci_time_hour').prop('required', true);
+                $('#appbundle_faktury_terminPlatnosci_time_minute').prop('required', true);
+
+            }
+        });
+    </script>
+{% endblock %}
